@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, user-scalable=no">
+    <title>H5拍照翻译</title>
+    <!-- 引入 FrozenUI -->
+    <link rel="stylesheet" href="http://i.gtimg.cn/vipstyle/frozenui/2.0.0/css/frozen.css"/>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/hammer.js/2.0.8/hammer.js"></script>
+    <script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.js"></script>
+    <style>
+        h1 {
+            font-size: 42px;
+            color: #34C0F5;
+            padding-top: 0;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 16px;
+            color: #bbb;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        .file input {
+            position: absolute;
+            font-size: 100px;
+            right: 0;
+            top: 0;
+            opacity: 0;
+        }
+
+        .header {
+            background-color: white;
+            padding-top: 5px;
+            padding-bottom: 5px
+        }
+
+        .two-buttons div {
+            width: 60%;
+        }
+
+        .two-buttons div a {
+            color: white;
+            margin-bottom: 20px
+        }
+
+        .ui-btn {
+            margin: auto auto;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>拍照翻译系统</h1>
+    <h2>RESULT</h2>
+</div>
+<!-- 使用 -->
+<ul class="ui-list ui-list-link ui-list-single ui-border-tb">
+    <li>
+        <div class="ui-avatar-s">
+            <span style="background-image:url(../static/img/question.jpg)"></span>
+        </div>
+        <div class="ui-list-info ui-border-t">
+            <h4 class="ui-nowrap">尚未登录</h4>
+        </div>
+    </li>
+</ul>
+<div style="width: 80%;margin:20px auto 20px;">
+    {{ text }}
+</div>
+<div class="footer">
+    <h2>Made By 头又秃又铁三人组</h2>
+</div>
+</body>
+</html>

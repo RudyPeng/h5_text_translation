@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0, user-scalable=no">
+    <title>H5拍照翻译</title>
+    <!-- 引入 FrozenUI -->
+    <link rel="stylesheet" href="http://i.gtimg.cn/vipstyle/frozenui/2.0.0/css/frozen.css"/>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/hammer.js/2.0.8/hammer.js"></script>
+    <script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.js"></script>
+    <style>
+        h1 {
+            font-size: 42px;
+            color: #34C0F5;
+            padding-top: 0;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 16px;
+            color: #bbb;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        .file {
+            position: relative;
+            display: inline-block;
+            background: rgb(18, 183, 245);
+            border: 1px solid #99D3F5;
+            border-radius: 4px;
+            padding: 4px 12px;
+            overflow: hidden;
+            color: #1E88C7;
+            text-decoration: none;
+            text-indent: 0;
+            line-height: 20px;
+        }
+
+        .file input {
+            position: absolute;
+            font-size: 100px;
+            right: 0;
+            top: 0;
+            opacity: 0;
+        }
+
+        .header {
+            background-color: white;
+            padding-top: 5px;
+            padding-bottom: 5px
+        }
+
+        .two-buttons {
+            margin-bottom: 10px;
+            margin-top: 20px
+        }
+
+        .two-buttons div {
+            width: 70%;
+        }
+
+        .two-buttons div a {
+            color: white;
+            margin-bottom: 20px
+        }
+
+        .ui-btn {
+            margin: auto auto;
+        }
+
+        .image {
+            width: 70%;
+            margin: auto auto;
+            margin-bottom: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>拍照翻译系统</h1>
+</div>
+<!-- 使用 -->
+<ul class="ui-list ui-list-link ui-list-single ui-border-tb">
+    <li>
+        <div class="ui-avatar-s">
+            <span style="background-image:url(../static/img/question.jpg)"></span>
+        </div>
+        <div class="ui-list-info ui-border-t">
+            <h4 class="ui-nowrap">尚未登录</h4>
+        </div>
+    </li>
+</ul>
+<div class="ui-feeds booth image" style="">
+    <ul>
+        <li>
+            <img img id='img' src="../static/img/headiron.jpg" alt="">
+        </li>
+    </ul>
+</div>
+<div class="two-buttons">
+    <div>
+        <a class="file" style="margin-left: 45%">
+            <input id="upload" onchange="getImageFile(event)" runat="server" type="file" accept="image/*"
+                   capture="camera" style="width:100%"/>
+            拍照/相册上传</a>
+    </div>
+
+    <button class="ui-btn ui-btn-primary" id="server-button">上传至服务器</button>
+</div>
+
+<div id="footerr" class="ui-tooltips ui-tooltips-guide ui-tooltips-action tip-footer" style="visibility:visible;">
+    <div class="ui-tooltips-cnt ui-border-b">
+        <i></i>请横屏拍照~<a class="ui-icon-close"></a>
+    </div>
+</div>
+<div class="footer">
+    <h2>Made By 头又秃又铁三人组</h2>
+</div>
+</body>
+<script>
+
+    $(function () {
+        FastClick.attach(document.body);
+    });
+
+    function getImageFile(e) {
+        let reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0])
+        // 监听读取操作结束
+        reader.onloadend = function () {
+            // 取出base64代码
+            var dataURL = reader.result;
+            // 赋值到图片上显示出来
+            document.getElementById("img").src = dataURL
+        };
+    }
+
+
+    var upload = document.getElementById("server-button");
+    upload.onclick = function () {
+        var file = document.getElementById('upload').files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                avatar = event.target.result;
+                $.ajax({
+                    url: "function_get",
+                    cache: false,
+                    type: 'POST',
+                    data: {
+                        avatar: reader.result,
+                    },
+                    dataType: 'json',
+                    success: function (rs) {
+                        location.href = "/result"
+                    },
+                    error: function (e) {
+                        alert("error!请联系管理员！")
+                    }
+
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    $(".ui-icon-close").click(function () {
+        $("#footerr").css("visibility", "hidden");
+    })
+
+</script>
+</html>
